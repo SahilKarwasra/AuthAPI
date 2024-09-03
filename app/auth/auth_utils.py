@@ -23,9 +23,11 @@ def get_password_hash(password):
 
 
 async def get_user(username: str):
-    user = await db["users"].find_one({"username": username})
+    user_collection = db["users"]
+    user = await user_collection.find_one({"username": username})
     if user:
         return UserInDB(**user)
+    return None
 
 
 async def authenticate_user(username: str, password: str):
